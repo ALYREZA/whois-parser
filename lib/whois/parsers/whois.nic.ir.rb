@@ -8,7 +8,7 @@
 
 
 require_relative 'base'
-
+require 'whois/scanners/whois.nic.ir.rb'
 
 module Whois
   class Parsers
@@ -25,14 +25,10 @@ module Whois
     # and examples.
     #
     class WhoisNicIr < Base
+      include Scanners::Scannable
 
-      property_supported :status do
-        if available?
-          :available
-        else
-          :registered
-        end
-      end
+      self.scanner = Scanners::WhoisNicIr
+
 
       property_supported :available? do
         !!(content_for_scanner =~ /%ERROR:101: no entries found/)
@@ -42,25 +38,11 @@ module Whois
         !available?
       end
 
-
-      property_not_supported :created_on
-
-      property_supported :updated_on do
-        if content_for_scanner =~ /last-updated:\s+(.*)\n/
-          parse_time($1)
-        end
+      property_supported :phone do
+        node('phone')
       end
-
-      property_not_supported :expires_on
-
-
-      property_supported :nameservers do
-        content_for_scanner.scan(/nserver:\s+(.+)\n/).flatten.map do |name|
-          Parser::Nameserver.new(:name => name)
-        end
-      end
-
     end
 
   end
+
 end

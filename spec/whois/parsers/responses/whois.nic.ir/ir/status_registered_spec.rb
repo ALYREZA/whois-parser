@@ -21,11 +21,6 @@ describe Whois::Parsers::WhoisNicIr, "status_registered.expected" do
     described_class.new(part)
   end
 
-  describe "#status" do
-    it do
-      expect(subject.status).to eq(:registered)
-    end
-  end
   describe "#available?" do
     it do
       expect(subject.available?).to eq(false)
@@ -36,34 +31,9 @@ describe Whois::Parsers::WhoisNicIr, "status_registered.expected" do
       expect(subject.registered?).to eq(true)
     end
   end
-  describe "#created_on" do
+  describe "#phone" do
     it do
-      expect { subject.created_on }.to raise_error(Whois::AttributeNotSupported)
-    end
-  end
-  describe "#updated_on" do
-    it do
-      expect(subject.updated_on).to be_a(Time)
-      expect(subject.updated_on).to eq(Time.parse("2014-02-17"))
-    end
-  end
-  describe "#expires_on" do
-    it do
-      expect { subject.expires_on }.to raise_error(Whois::AttributeNotSupported)
-    end
-  end
-  describe "#nameservers" do
-    it do
-      expect(subject.nameservers).to be_a(Array)
-      expect(subject.nameservers.size).to eq(4)
-      expect(subject.nameservers[0]).to be_a(Whois::Parser::Nameserver)
-      expect(subject.nameservers[0].name).to eq("ns3.google.com")
-      expect(subject.nameservers[1]).to be_a(Whois::Parser::Nameserver)
-      expect(subject.nameservers[1].name).to eq("ns4.google.com")
-      expect(subject.nameservers[2]).to be_a(Whois::Parser::Nameserver)
-      expect(subject.nameservers[2].name).to eq("ns1.google.com")
-      expect(subject.nameservers[3]).to be_a(Whois::Parser::Nameserver)
-      expect(subject.nameservers[3].name).to eq("ns2.google.com")
+      expect(subject.phone).to eq("this is it")
     end
   end
 end

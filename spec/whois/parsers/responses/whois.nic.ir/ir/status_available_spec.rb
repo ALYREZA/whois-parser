@@ -21,11 +21,6 @@ describe Whois::Parsers::WhoisNicIr, "status_available.expected" do
     described_class.new(part)
   end
 
-  describe "#status" do
-    it do
-      expect(subject.status).to eq(:available)
-    end
-  end
   describe "#available?" do
     it do
       expect(subject.available?).to eq(true)
@@ -34,27 +29,6 @@ describe Whois::Parsers::WhoisNicIr, "status_available.expected" do
   describe "#registered?" do
     it do
       expect(subject.registered?).to eq(false)
-    end
-  end
-  describe "#created_on" do
-    it do
-      expect { subject.created_on }.to raise_error(Whois::AttributeNotSupported)
-    end
-  end
-  describe "#updated_on" do
-    it do
-      expect(subject.updated_on).to eq(nil)
-    end
-  end
-  describe "#expires_on" do
-    it do
-      expect { subject.expires_on }.to raise_error(Whois::AttributeNotSupported)
-    end
-  end
-  describe "#nameservers" do
-    it do
-      expect(subject.nameservers).to be_a(Array)
-      expect(subject.nameservers).to eq([])
     end
   end
 end
